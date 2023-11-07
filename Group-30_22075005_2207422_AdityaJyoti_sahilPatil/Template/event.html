@@ -1,0 +1,478 @@
+{% extends 'Base.html' %}
+
+{% block title %}Event{% endblock title %}
+{% block body %}
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <!-- <link href="blog.css" rel="stylesheet"> -->
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <symbol id="check2" viewBox="0 0 16 16">
+        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+      </symbol>
+      <symbol id="circle-half" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+      </symbol>
+      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+      </symbol>
+      <symbol id="sun-fill" viewBox="0 0 16 16">
+        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+      </symbol>
+    </svg>
+
+    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+              id="bd-theme"
+              type="button"
+              aria-expanded="false"
+              data-bs-toggle="dropdown"
+              aria-label="Toggle theme (auto)">
+        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
+        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+        <li>
+          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+            Light
+            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
+            Dark
+            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
+            Auto
+            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="aperture" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/>
+  </symbol>
+  <symbol id="cart" viewBox="0 0 16 16">
+    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+  <symbol id="chevron-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+  </symbol>
+</svg>
+
+<div class="container">
+  <header class="border-bottom lh-1 py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 pt-1">
+        <a class="link-secondary" href="#">Subscribe</a>
+      </div>
+      <div class="col-4 text-center">
+        <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">Environment</a>
+      </div>
+      <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="link-secondary" href="#" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+        </a>
+        <a class="btn btn-sm btn-outline-secondary" href="/signup">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- <div class="nav-scroller py-1 mb-3 border-bottom">
+    <nav class="nav nav-underline justify-content-between">
+      <a class="nav-item nav-link link-body-emphasis active" href="#">World</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">U.S.</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Technology</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Design</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Culture</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Business</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Politics</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Opinion</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Science</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Health</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Style</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Travel</a>
+    </nav>
+  </div>
+</div> -->
+
+<main class="container">
+  <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+    <div class="col-lg-6 px-0">
+      <h1 class="display-4 fst-italic">Current and Upcoming Events</h1>
+      <!-- <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p> -->
+      <!-- <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p> -->
+      <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white">Past Events</a>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
+          <h3 class="mb-0">Asia and the Pacific Climate Week 2023</h3>
+          <div class="mb-1 text-body-secondary">Nov 12</div>
+          <p class="card-text mb-auto">When: 13-17 November 2023 
+
+            Where: Persada Johor International Convention Centre, Johor Bahru, Malaysia
+            
+            Registrations are now open.
+            
+            The Asia Pacific Climate Week (APCW) is an annual event that brings together leaders from governments, businesses, international organizations and civil society to explore ways to reduce greenhouse gas emissions while adapting to the mounting…
+            
+            Categorized Under: Malaysia</p>
+          <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+            Continue reading
+            <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+          </a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+            <img class="bd-placeholder-img" width="200" height="250" src="/Static/photos/6.jpeg">
+          <!-- <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
+          <h3 class="mb-0">Science-Policy Panel Open-Ended Working Group (SPP OEWG) Bureau Meeting</h3>
+          <div class="mb-1 text-body-secondary">Nov 11</div>
+          <p class="mb-auto">VENUE: GAO Boardroom and Online</p>
+          <p class="mb-auto">Chaired by: H.E. Ms Gudi Alkemade, Chair of the ad hoc Open-ended Working Group on a science policy panel to contribute further to the sound management of chemicals and waste and the prevention of pollution.
+
+            For more information, please visit the OEWG website or contact the Secretariat at spp-cwp[at]un.org</p>
+          <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+            Continue reading
+            <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+          </a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <!-- <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+          <img class="bd-placeholder-img" width="200" height="250" src="/Static/photos/6.jpeg">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-5">
+    <div class="col-md-8">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">
+        Environment
+      </h3>
+
+      <article class="blog-post">
+        <h2 class="display-5 link-body-emphasis mb-1">Sample blog post</h2>
+        <p class="blog-post-meta">January 1, 2021 by <a href="#">Mark</a></p>
+
+        <p>Environment means what surrounds us. It may be living or non-living things. It includes physical, chemical and other natural forces. Living things live in their environment. They constantly interact with it and adapt themselves to conditions in their environment. In the environment there are different interactions between animals, plants, soil, water, and other living and non-living things.
+
+            The word environment is used to talk about many things. People in different fields of knowledge use the word environment differently. Electromagnetic environment is radio waves and other electromagnetic radiation and magnetic fields. The environment of a galaxy may mean the interstellar medium, or it may mean other nearby galaxies.
+            
+            In psychology and medicine, a person's environment is the people, physical things and places that the person lives with. The environment affects the growth and development of the person. It may affect the person's behavior, body and mind.
+            
+            The conditions of living organisms in an environment are affected by the weather and climate changes in the environment. They are also greatly affected by other living things.</p>
+        <hr>
+        <!-- <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p> -->
+        <h2>Natural environment</h2>
+        <p>In biology and ecology, the environment is all of the natural materials and living things, If those things are natural, it is a natural environment.
+
+            Environment includes the living and non-living things that an organism interacts with, or has an effect on it. Living elements that an organism interacts with are known as biotic elements: animals, plants, etc. Abiotic elements are non living things which include air, water, sunlight etc. Studying the environment means studying the relationships among these various things. An example of interactions between non-living and living things is plants getting their minerals from the soil and making food using sunlight. Predation, an organism eating another, is an example of interaction between living things.
+            
+            Environmentalists think we should protect the natural environment, to keep it safe. Things in the natural environment that we value are called natural resources. For example; fish, insects, and forests. These are renewable resources because they come back naturally when we use them. Non-renewable resources are important things in the environment that are limited for example, ores and fossil fuels after a few thousand years. Some things in the natural environment can kill people, such as lightning.</p>
+        <!-- <blockquote class="blockquote">
+          <p>Quoted text goes here.</p>
+        </blockquote> -->
+        <!-- <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+        <h3>Example lists</h3>
+        <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout. This is an example unordered list:</p> -->
+        <hr>
+        <h2>Environmental factor</h2>
+        <p>Environmental chemistry is the scientific study of the chemical and biochemical phenomena that occur in natural places. Environmental chemistry can be defined as the study of the sources, reactions, transport, effects, and fates of chemical species in the air, soil, and water environments; and the effect of human activity on these. Environmental chemistry is an interdisciplinary science that includes atmospheric, aquatic and soil chemistry, as well as uses analytical chemistry. It is related to environmental and other areas of science. It is different from green chemistry, which tries to reduce potential pollution at its source.
+
+            Environmental chemistry starts by understanding how the uncontaminated environment works. It identifies the chemicals that are present naturally. It studies the concentration and effects of those chemicals. Then, it accurately study the effects humans have on the environment through the release of chemicals.
+            
+            Environmental chemists draw on a range of concepts from chemistry and various environmental sciences to assist in their study of what is happening to a chemical in the environment. Important general concepts from chemistry include understanding chemical reactions and equations, solutions, units, sampling, and analytical techniques.[1] Chemists study compounds with biological activity such as pheromones.</a>.</p>
+            <h2>Natural environment</h2>
+            <p>An environmental factor (also called eco factor) is any factor which influences living organisms. Abiotic factors include ambient temperatures, the amounts of sunlight and PH of water soil in which organisms live. Biotic factors include the availability of food organisms and the presence of predators, parasites and competitors.
+
+                Cancers are often related to environmental factors.[1] Having a healthy diet, healthy weight, limiting alcoholic drinks and quitting or not starting smoking cuts down the risks of getting cancer.
+                
+                Environmental triggers for asthma and autism have been studied also.</p>
+
+                <h2>Environmental factor</h2>
+                <p>Environmental chemistry is the scientific study of the chemical and biochemical phenomena that occur in natural places. Environmental chemistry can be defined as the study of the sources, reactions, transport, effects, and fates of chemical species in the air, soil, and water environments; and the effect of human activity on these. Environmental chemistry is an interdisciplinary science that includes atmospheric, aquatic and soil chemistry, as well as uses analytical chemistry. It is related to environmental and other areas of science. It is different from green chemistry, which tries to reduce potential pollution at its source.
+        
+                    Environmental chemistry starts by understanding how the uncontaminated environment works. It identifies the chemicals that are present naturally. It studies the concentration and effects of those chemicals. Then, it accurately study the effects humans have on the environment through the release of chemicals.
+                    
+                    Environmental chemists draw on a range of concepts from chemistry and various environmental sciences to assist in their study of what is happening to a chemical in the environment. Important general concepts from chemistry include understanding chemical reactions and equations, solutions, units, sampling, and analytical techniques.[1] Chemists study compounds with biological activity such as pheromones.</a>.</p>
+                    <h2>Environmental revitalization</h2>
+                    <p>Environmental revitalization is a process where plant life and other life is brought back to an area that was polluted, barren, contaminated, or turned into desert. Areas of environmental revitalization can be wetlands, meadows and forests.</p>
+        
+        
+                    <h2>Environmentalism</h2>
+                    <p>Environmentalism is both a philosophy and a social movement that is about protecting nature. It advocates helping to preserve, protect, and restore the natural environment from damage.[1] Environmentalists often talk about threats to the earth from pollution, climate change and overpopulation. Environmentalism is both personal and political. In their own lives, environmentalists do things that are better for the earth, such as recycling, using natural products, and supporting businesses that try not to harm the environment. Politically, they support laws that help the environment, like laws against pollution.
+
+                        The word Environmentalism comes from 'environmental' and '-ism'. 'Environmental' is the chemical, physical, and biological components of the environment while '-ism' is a suffix used to create action nouns out of verbs.</p>
+                        <h2>Environmental revitalization</h2>
+                        <p>Environmental revitalization is a process where plant life and other life is brought back to an area that was polluted, barren, contaminated, or turned into desert. Areas of environmental revitalization can be wetlands, meadows and forests.</p>
+        
+                        <h2>Ecology</h2>
+                        <p>Ecology is the branch or aspect of biology that studies the biota (living things), the environment, and their interactions. It comes from the Greek oikos = house; logos = study.
+
+Ecology is the study of ecosystems. Ecosystems describe the web or network of relations among organisms at different scales of organization. Since ecology refers to any form of biodiversity, ecologists research everything from tiny bacteria in nutrient recycling to the effects of tropical rain forests on the Earth's atmosphere. Scientists who study these interactions are called ecologists.
+
+Terrestrial ecoregion and climate change research are two areas where ecologists now focus.
+
+There are many practical applications of ecology in conservation biology, wetland management, natural resource management (agriculture, forestry, fisheries), city planning (urban ecology), community health, economics, and applied science. It provides a framework for understanding and researching human social interaction.[</p>
+           
+        <h2>Solutions to plastic pollution</h2>
+        <p>More than 400 million tonnes of plastic is produced every year worldwide, half of which is designed to be used only once. Of that, less than 10 per cent is recycled.
+
+            An estimated 19-23 million tonnes end up in lakes, rivers and seas annually. That is approximately the weight of 2,200 Eiffel Towers all together.
+            
+            Microplastics – tiny plastic particles up to 5mm in diameter – find their way into food, water and air. It is estimated that each person on the planet consumes more than 50,000 plastic particles per year –and many more if inhalation is considered.
+            
+            Discarded or burnt single-use plastic harms human health and biodiversity and pollutes every ecosystem from mountain tops to the ocean floor.
+            
+            With available science and solutions to tackle the problem, governments, companies and other stakeholders must scale up and speed actions to solve this crisis.
+            
+            This underscores the importance of this World Environment Day in mobilizing transformative action from every corner of the world.</p>
+        <h3>Fifty years celebrating World Environment Day</h3>
+        <p>TLed by the United Nations Environment Programme (UNEP) and held annually on 5 June since 1973, World Environment Day is the largest global platform for environmental public outreach and is celebrated by millions of people across the world. In 2023, it is hosted by Côte D'Ivoire.</p>
+        
+      </article>
+
+      <article class="blog-post">
+        <h2 class="display-5 link-body-emphasis mb-1">Barry Commoner</h2>
+        <p class="blog-post-meta">December 23, 2020 by <a href="#">Jacob</a></p>
+
+        <p>Barry Commoner, (born May 28, 1917, Brooklyn, New York, U.S.—died September 30, 2012, New York, New York), American biologist and educator. He studied at Harvard University and taught at Washington University and Queens College. His warnings, since the 1950s, of the environmental threats posed by modern technology (including nuclear weapons, use of pesticides and other toxic chemicals, and ineffective waste management) in such works as his classic Science and Survival (1966) made him one of the foremost environmentalist spokesmen of his time. He was a third-party candidate for U.S. president in 1980.</p>
+        
+        
+        <h3>Pollution City</h3>
+        <p>And don't forget about tables in these posts:</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>city</th>
+              <th>co</th>
+              <th>NOX</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Delhi</td>
+              <td>421.84</td>
+              <td>110.45</td>
+            </tr>
+            <tr>
+              <td>Mumbai</td>
+              <td>189.55</td>
+              <td>46.37</td>
+            </tr>
+            <tr>
+              <td>Kolkata</td>
+              <td>137</td>
+              <td>52.7</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>channai</td>
+              <td>177</td>
+              <td>27.30</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <!-- <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p> -->
+      </article>
+
+      <article class="blog-post">
+        <h2 class="display-5 link-body-emphasis mb-1">Environmental Issues</h2>
+        <!-- <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p> -->
+
+        <p>Environmental issues are the harmful effects of human activities on the environment. These include pollution, overpopulation, waste disposal, climate change, global warming, the greenhouse effect, etc. 
+
+            Various environment protection programs are being practised at the individual, organizational and government levels with the aim of establishing a balance between man and the environment..</p>
+        <ul>
+          <li>Climate Change</li>
+          <li>Global Warming</li>
+          <li>Ozone Layer Depletion</li>
+        </ul>
+        <!-- <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p> -->
+      </article>
+
+      <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
+        <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
+      </nav>
+
+    </div>
+
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        <div class="p-4 mb-3 bg-body-tertiary rounded">
+          <h4 class="fst-italic">About</h4>
+          <p class="mb-0">The natural environment or natural world encompasses all living and non-living things occurring naturally, meaning in this case not artificial.</p>
+        </div>
+
+        <div>
+          <h4 class="fst-italic">Recent posts</h4>
+          <ul class="list-unstyled">
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <!-- <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+                <img class="bd-placeholder-img" width="200" height="96" src="/Static/photos/8.jpeg">
+                <div class="col-lg-8">
+                  <h6 class="mb-0">Regional Foresight Workshop - Africa
+                </h6>
+                  <small class="text-body-secondary">January 15, 2023</small>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <!-- <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+                <img class="bd-placeholder-img" width="200" height="96" src="/Static/photos/8.jpeg">
+                <div class="col-lg-8">
+                  <h6 class="mb-0">Regional Foresight Workshop - North America</h6>
+                  <small class="text-body-secondary">January 14, 2023</small>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <!-- <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+                <img class="bd-placeholder-img" width="200" height="96" src="/Static/photos/9.jpeg">
+                <div class="col-lg-8">
+                  <h6 class="mb-0">LSecond Session of Intergovernmental Negotiating Committee on Plastic Pollution</h6>
+                  <small class="text-body-secondary">January 13, 2023</small>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        
+
+        <div class="p-4">
+          <h4 class="fst-italic">Elsewhere</h4>
+          <ol class="list-unstyled">
+            <li><a href="https://github.com/AdityaJyoti2002">GitHub</a></li>
+            <li><a href="https://www.instagram.com/aditya2002a/">Instagram</a></li>
+            <li><a href="https://www.youtube.com/channel/UCrEUWlRsSuUBN4ek7yPedzg">Youtube</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+  <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+  <p class="mb-0">
+    <a href="#">Back to top</a>
+  </p>
+</footer>
+<script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    </body>
+</html>
+{% endblock body %}
